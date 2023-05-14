@@ -23,9 +23,6 @@ export default function SideBar() {
         orderBy('createdAt', 'asc'),
       ),
   );
-  const [ApiKey] = useCollection(
-    session && query(collection(db, 'users', session?.user?.email!, 'ApiKey')),
-  );
   // console.log(ApiKey.docs)
   return (
     <div className="p-2 flex flex-col h-screen">

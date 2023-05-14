@@ -21,7 +21,7 @@ export default function Login() {
     }
     if (status === 'authenticated' && !isEmpty(session?.user)) {
       setTimeout(() => {
-        router.replace(`/chat`);
+        router.replace(`/config`);
       }, 2000);
     }
   }, [status, session, router]);
