@@ -7,18 +7,16 @@ import { collection, orderBy, query } from 'firebase/firestore';
 import { db } from '@/firebase';
 import ChatHistory from './ChatHistory';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 
 export default function SideBar() {
   const { data: session } = useSession();
 
-  const router = useRouter();
   const handleSignout = () => {
     signOut({
       callbackUrl: '/',
     });
   };
-  const [chats, loading, error] = useCollection(
+  const [chats, loading] = useCollection(
     session &&
       query(
         collection(db, 'users', session?.user?.email!, 'chats'),
@@ -47,14 +45,20 @@ export default function SideBar() {
         </div>
       </div>
       {session && (
-        <Image
-          width={100}
-          height={100}
-          onClick={handleSignout}
-          src={session.user?.image!}
-          alt="Profile Picture"
-          className="h-12 w-12 rounded-full cursor-pointer mx-auto mb-2 hover:opacity-50"
-        />
+        <div className="flex flex-row justify-center">
+          <Image
+            width={50}
+            height={50}
+            src={session.user?.image!}
+            alt="Profile Picture"
+            className="rounded-full cursor-pointer mb-2 "
+          />
+          <button onClick={handleSignout}>
+            <p className="text-xl font-bold p-2 text-white hover:text-teal-400">
+              Sign out
+            </p>
+          </button>
+        </div>
       )}
     </div>
   );
